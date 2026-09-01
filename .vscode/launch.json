@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-HomepickApplication<homepick>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.onrender.homepick.HomepickApplication",
+            "projectName": "homepick",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
