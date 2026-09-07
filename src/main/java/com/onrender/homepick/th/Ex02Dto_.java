@@ -17,7 +17,7 @@ public class Ex02Dto_ {
 
     // 타임리프의 ${user.name} 접근을 위해 Getter 필수
     // 메서드(getter(읽기), setter(설정))
-    // @getter
+    // @Getter
     public String getName() {
         return name;
     }

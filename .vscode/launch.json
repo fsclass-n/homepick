@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.onrender.homepick.basic.Main",
+            "projectName": "homepick"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-HomepickApplication<homepick>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

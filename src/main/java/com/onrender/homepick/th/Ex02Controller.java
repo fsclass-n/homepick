@@ -12,6 +12,7 @@ public class Ex02Controller {
         model.addAttribute("message", "안녕하세요!");
 
         // user 객체를 모델에 추가 (th:if="${user != null}" 통과)
+        // Ex02Dto user = new Ex02Dto("박길동")
         model.addAttribute("user", new Ex02Dto("박길동"));
         
         return "th/ex02";

@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class Ex01 {
+public class Ex01Controller {
 
     @GetMapping("/th/ex01")
     public String ex01(Model model) {
