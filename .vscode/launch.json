@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Ex02_ListOf",
+            "request": "launch",
+            "mainClass": "com.onrender.homepick.basic.Ex02_ListOf",
+            "projectName": "homepick"
+        },
+        {
+            "type": "java",
+            "name": "Ex02_List",
+            "request": "launch",
+            "mainClass": "com.onrender.homepick.basic.Ex02_List",
+            "projectName": "homepick"
+        },
+        {
+            "type": "java",
             "name": "Ex01_객체생성",
             "request": "launch",
             "mainClass": "com.onrender.homepick.basic.Ex01_객체생성",
