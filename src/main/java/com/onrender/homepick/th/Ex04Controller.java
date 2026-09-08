@@ -25,6 +25,8 @@ public class Ex04Controller {
         model.addAttribute("itemList", items);
 
         // board 객체 추가 (id=10L 지정)
+        // 정수: char, byte, short, int, long
+        // 실수: float, double (부호부+가수부+지수부)
         model.addAttribute("board", new Ex04Dto(10L, "첫 번째 게시글"));
 
         return "th/ex04";

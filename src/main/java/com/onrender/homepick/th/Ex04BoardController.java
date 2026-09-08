@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class Ex04BoardController {
 
-    // /th/board?id=10 요청 처리
+    // /th/login?id=10 요청 처리
     @GetMapping("/th/ex04/board")
-    public String ex04Board(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("boardId", id);
-        return "th/ex04_board"; // templates/th/ex04_board.html 반환
+    public String ex04Login(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("login", id);
+        return "th/ex04_login"; // templates/th/ex04_login.html 반환
     }
 
-    // GET /th/board/10
+    // GET /th/qna/10
     @GetMapping("/th/ex04/board/{id}")
-    public String ex04Board2(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("boardId", id);
-        return "th/ex04_board2";
+    public String ex04Qna(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("qna", id);
+        return "th/ex04_qna";
     }
 }
