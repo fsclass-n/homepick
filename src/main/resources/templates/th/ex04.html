@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <a th:href="@{/th/ex04/board(id=${board.id})}">게시글 보기</a>
+    <a th:href="@{/th/ex04/board/{id}(id=${board.id})}">게시글 보기2</a>
+</body>
+
+</html>

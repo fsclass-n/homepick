@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class Ex04Controller {
+public class Ex04_Controller {
     
     @GetMapping("/th/ex04")
     public String ex04(Model model) {
@@ -25,7 +25,7 @@ public class Ex04Controller {
         model.addAttribute("itemList", items);
 
         // board 객체 추가 (id=10L 지정)
-        model.addAttribute("board", new Ex04Dto(10L, "첫 번째 게시글"));
+        model.addAttribute("board", new Ex04_Dto(10L, "첫 번째 게시글"));
 
         return "th/ex04";
     }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class Ex04BoardController {
+public class Ex04_BoardController {
 
     // /th/board?id=10 요청 처리
     @GetMapping("/th/ex04/board")
