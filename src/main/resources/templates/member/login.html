@@ -110,7 +110,7 @@
 
             <!-- 서브 유틸 링크 -->
             <div class="d-flex justify-content-center align-items-center gap-3 small mb-4">
-                <a href="/member/join" class="link-dark fw-bold text-decoration-none">회원가입</a>
+                <a href="join.html" class="link-dark fw-bold text-decoration-none">회원가입</a>
                 <span class="text-black-50 small">|</span>
                 <a href="/member/find-id" class="link-secondary text-decoration-none">아이디 찾기</a>
                 <span class="text-black-50 small">|</span>
@@ -159,9 +159,9 @@
 
 
     <div th:replace="~{common/footer :: footerFragment}"></div>
-
-    <!-- Bootstrap 5 JS Bundle & Header Script -->
+    <!-- 3. Bootstrap JS (authModal 제어용) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script th:src="@{/js/header.js}"></script>
     <script th:src="@{/js/footer.js}"></script>
     <script th:src="@{/js/cursor.js}"></script>

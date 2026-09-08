@@ -1,7 +1,7 @@
 package com.onrender.homepick.basic;
 
 // 객체 생성 및 사용
-public class Ex01_객체생성 {
+public class main {
     public static void main(String[] args){
         // new 키워드로 Car 객체 생성
         Car myCar = new Car("소나타", 100);
