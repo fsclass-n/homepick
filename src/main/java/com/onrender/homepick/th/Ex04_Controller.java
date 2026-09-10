@@ -1,32 +1,39 @@
 package com.onrender.homepick.th;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class Ex04_Controller {
     
     @GetMapping("/th/ex04")
     public String ex04(Model model) {
-        model.addAttribute("message", "안녕하세요!");
-
-        // user 객체를 모델에 추가 (th:if="${user != null}" 통과)
-        model.addAttribute("user", new Ex02Dto("홍길동"));
-
-        // itemList 생성 후 Model에 추가
-        List<Ex03Dto> items = List.of(
-            new Ex03Dto("노트북"),
-            new Ex03Dto("무선 마우스"),
-            new Ex03Dto("기계식 키보드")
-        );
-        model.addAttribute("itemList", items);
-
-        // board 객체 추가 (id=10L 지정)
-        model.addAttribute("login", new Ex04_Dto(10L, "첫 번째 게시글"));
-
+        // link 객체 추가 (id=10L 지정)
+        model.addAttribute("link", new Ex04_Dto(10L));
         return "th/ex04";
+    }
+
+        // /th/login?id=10 요청 처리
+    @GetMapping("/th/ex04/login")
+    public String ex04login(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("loginId", id);
+        return "th/ex04_login"; // templates/th/ex04_board.html 반환
+    }
+
+    // GET /th/join/10
+    @GetMapping("/th/ex04/join/{id}")
+    public String ex04join(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("joinId", id);
+        return "th/ex04_join";
+    }
+
+    // GET /th/faq/10
+    @GetMapping("/th/ex04/faq/{id}")
+    public String ex04faq(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("faqId", id);
+        return "th/ex04_faq";
     }
 }

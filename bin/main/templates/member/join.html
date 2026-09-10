@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 홈픽 (Homepick)</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom Join CSS (타임리프 URL 링크 표기법 th:href 적용) -->
+    <link rel="stylesheet" th:href="@{/css/join.css}" href="../../static/css/common.css">
+    <link rel="stylesheet" th:href="@{/css/join.css}" href="../../static/css/join.css">
+</head>
+
+<body class="bg-light">
+
+    <!-- 공통 헤더 include -->
+    <header th:replace="~{common/header :: header}">
+        <!-- header.html 미연결 시 로컬 퍼블리싱용 기본 로고 -->
+        <nav class="navbar navbar-light bg-white border-bottom shadow-sm">
+            <div class="container justify-content-center">
+                <a class="navbar-brand fw-bold homepick-logo" href="#">Homepick</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 회원가입 메인 컨테이너 (Bootstrap 5 Flexbox) -->
+    <div class="container d-flex flex-column justify-content-center align-items-center py-5">
+
+        <main class="card join-card shadow-sm border-0 w-100 p-4 p-md-5">
+
+            <!-- 인라인 헤더 로고 -->
+            <div class="text-center mb-4">
+                <a href="/" class="homepick-logo text-decoration-none">
+                    <i class="bi bi-houses-fill me-1"></i>Homepick
+                </a>
+                <p class="text-muted small mt-1">우리 집 찾기의 모든 것, 홈픽 회원가입</p>
+            </div>
+
+            <!-- STEP 1: 부동산 서비스 이용약관 동의 -->
+            <section id="step1" class="step-section">
+                <h2 class="step-title">홈픽 서비스 이용을 위한<br>약관 동의가 필요해요</h2>
+
+                <div class="form-check check-all-box my-4 p-3 rounded d-flex align-items-start">
+                    <input class="form-check-input mt-1 me-2" type="checkbox" id="checkAll">
+                    <label class="form-check-label fw-bold" for="checkAll">
+                        전체 약관에 동의합니다
+                        <span class="d-block fw-normal text-muted small mt-1">
+                            매물 정보 알림, 허위매물 신고 규정, 위치기반 매물 탐색 서비스(선택) 동의가 포함됩니다.
+                        </span>
+                    </label>
+                </div>
+
+                <ul class="list-unstyled terms-list mb-4">
+                    <li class="d-flex justify-content-between align-items-center py-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input term-item" type="checkbox" id="termService" required>
+                            <label class="form-check-label" for="termService">[필수] 홈픽 이용약관</label>
+                        </div>
+                        <a href="javascript:void(0)" class="text-muted small text-decoration-none">내용보기</a>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center py-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input term-item" type="checkbox" id="termPrivacy" required>
+                            <label class="form-check-label" for="termPrivacy">[필수] 개인정보 수집 및 이용 동의</label>
+                        </div>
+                        <a href="javascript:void(0)" class="text-muted small text-decoration-none">내용보기</a>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center py-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input term-item" type="checkbox" id="termLocation">
+                            <label class="form-check-label" for="termLocation">[선택] 위치기반 부동산 매물 추천 서비스</label>
+                        </div>
+                        <a href="javascript:void(0)" class="text-muted small text-decoration-none">내용보기</a>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center py-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input term-item" type="checkbox" id="termMarketing">
+                            <label class="form-check-label text-muted" for="termMarketing">[선택] 맞춤 청약 및 분양 혜택 정보
+                                수신</label>
+                        </div>
+                    </li>
+                </ul>
+
+                <button type="button" class="btn btn-homepick w-100 py-3" id="btnStep1" disabled>다음</button>
+            </section>
+
+            <!-- STEP 2: 기본 회원 정보 (이름, 생년월일, 성별) -->
+            <section id="step2" class="step-section d-none">
+                <h2 class="step-title mb-4">회원님의 기본 정보를<br>입력해 주세요</h2>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary">이름</label>
+                    <input type="text" class="form-control underline-input" id="userName" placeholder="실명을 입력해 주세요">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary">생년월일 (8자리)</label>
+                    <input type="text" class="form-control underline-input" id="userBirth" placeholder="예: 19950315"
+                        maxlength="8">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-secondary">성별</label>
+                    <div class="d-flex gap-2">
+                        <input type="radio" class="btn-check" name="userGender" id="genderM" value="M"
+                            autocomplete="off">
+                        <label class="btn btn-outline-secondary w-50 py-2" for="genderM">남성</label>
+
+                        <input type="radio" class="btn-check" name="userGender" id="genderF" value="F"
+                            autocomplete="off">
+                        <label class="btn btn-outline-secondary w-50 py-2" for="genderF">여성</label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-homepick w-100 py-3" id="btnStep2" disabled>다음</button>
+            </section>
+
+            <!-- STEP 3: 휴대폰 본인인증 (Firebase Phone Auth) -->
+            <section id="step3" class="step-section d-none">
+                <h2 class="step-title mb-2">휴대전화번호를 인증해 주세요</h2>
+                <p class="text-muted small mb-4">허위 매물 방지 및 안전한 부동산 거래를 위해 번호 인증을 진행합니다.</p>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary">휴대폰 번호</label>
+                    <div class="d-flex align-items-center border-bottom pb-1">
+                        <span class="fw-bold text-muted me-2">+82</span>
+                        <input type="tel" class="form-control border-0 p-0 shadow-none fw-bold" id="userPhone"
+                            placeholder="01012345678" maxlength="11">
+                    </div>
+                </div>
+
+                <!-- Firebase reCAPTCHA Invisible 렌더링 컨테이너 -->
+                <div id="recaptcha-container"></div>
+
+                <button type="button" class="btn btn-homepick w-100 py-3 mt-3" id="btnSendAuthCode" disabled>
+                    인증문자 받기
+                </button>
+            </section>
+
+            <!-- STEP 4: 계정 생성 (아이디 & 비밀번호) -->
+            <section id="step4" class="step-section d-none">
+                <h2 class="step-title mb-4">로그인에 사용할<br>아이디와 비밀번호를 정해주세요</h2>
+
+                <form id="joinForm" onsubmit="return false;">
+                    <div class="input-card border rounded p-3 mb-3 input-box-focus">
+                        <label class="form-label small text-muted mb-1">아이디(이메일 형태 권장)</label>
+                        <input type="text" class="form-control border-0 p-0 shadow-none fw-bold" id="userId"
+                            placeholder="예: homepick123">
+                    </div>
+
+                    <div class="input-card border rounded p-3 mb-3 input-box-focus">
+                        <label class="form-label small text-muted mb-1">비밀번호</label>
+                        <input type="password" class="form-control border-0 p-0 shadow-none fw-bold" id="userPassword"
+                            placeholder="8자리 이상 영문/숫자/특수문자">
+                    </div>
+
+                    <div class="input-card border rounded p-3 mb-4 input-box-focus">
+                        <label class="form-label small text-muted mb-1">비밀번호 확인</label>
+                        <input type="password" class="form-control border-0 p-0 shadow-none fw-bold"
+                            id="userPasswordConfirm" placeholder="비밀번호 재입력">
+                    </div>
+
+                    <button type="button" class="btn btn-homepick w-100 py-3" id="btnSubmitJoin" disabled>
+                        홈픽 시작하기
+                    </button>
+                </form>
+            </section>
+
+        </main>
+
+        <!-- 로그인 이동 링크 -->
+        <div class="mt-4 text-center">
+            <span class="text-muted small">이미 홈픽 계정이 있으신가요?</span>
+            <a href="/member/login" class="text-homepick small text-decoration-none fw-bold ms-1">로그인</a>
+        </div>
+
+    </div>
+
+    <!-- Firebase 인증번호 입력 Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 p-3 rounded-4 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <div>
+                        <span class="badge bg-light text-dark border" id="modalTargetPhone"></span>
+                        <h5 class="modal-title fs-6 fw-bold mt-1">인증번호 입력</h5>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="btnCloseModal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="small text-muted mb-3">전송된 6자리 번호를 입력해 주세요.</p>
+
+                    <div class="d-flex justify-content-between mb-3 gap-1">
+                        <input type="text" maxlength="1" class="form-control text-center fs-5 otp-input"
+                            inputmode="numeric">
+                        <input type="text" maxlength="1" class="form-control text-center fs-5 otp-input"
+                            inputmode="numeric">
+                        <input type="text" maxlength="1" class="form-control text-center fs-5 otp-input"
+                            inputmode="numeric">
+                        <input type="text" maxlength="1" class="form-control text-center fs-5 otp-input"
+                            inputmode="numeric">
+                        <input type="text" maxlength="1" class="form-control text-center fs-5 otp-input"
+                            inputmode="numeric">
+                        <input type="text" maxlength="1" class="form-control text-center fs-5 otp-input"
+                            inputmode="numeric">
+                    </div>
+
+                    <div class="d-flex justify-content-between small text-muted mb-3">
+                        <span>남은 시간 <strong class="text-danger" id="timer">03:00</strong></span>
+                        <a href="javascript:void(0)" class="text-secondary text-decoration-none"
+                            id="btnResendAuth">재전송</a>
+                    </div>
+
+                    <button type="button" class="btn btn-homepick w-100 py-2" id="btnVerifyAuthCode">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공통 푸터 include -->
+    <footer th:replace="~{common/footer :: footer}">
+        <footer class="mt-5 py-4 border-top text-center text-muted small bg-white">
+            <div class="container">
+                <p class="mb-1">&copy; 2026 Homepick Inc. All rights reserved.</p>
+            </div>
+        </footer>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Firebase App & Auth SDK (v9+ compat 모드: CDN 로드 및 손쉬운 연동) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    <!-- Custom Join JS (타임리프 URL 링크 표기법 th:src 적용) -->
+    <script th:src="@{/js/join.js}" src="../../static/js/join.js"></script>
+</body>
+
+</html>
