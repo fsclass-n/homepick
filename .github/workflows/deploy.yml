@@ -72,9 +72,11 @@ jobs:
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
+          # Ubuntu AMI의 기본 SSH 계정입니다.
+          username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          port: ${{ secrets.EC2_SSH_PORT || '22' }}
+          passphrase: ${{ secrets.EC2_SSH_PASSPHRASE }}
+          port: 22
           envs: IMAGE_NAME,CONTAINER_NAME,DOCKERHUB_USERNAME,DOCKERHUB_TOKEN
           script: |
             set -e
