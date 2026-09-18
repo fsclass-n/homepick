@@ -35,6 +35,7 @@ public class LoginController{
         }
 
         session.setAttribute("loginUser", new MemberSessionDto(member.getEmail(), member.getName()));
+        
         return "redirect:/";
     }
 

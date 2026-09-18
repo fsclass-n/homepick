@@ -112,6 +112,10 @@
                         <a href="templates/member/join.html" class="text-decoration-none text-white">회원가입</a>
                     </div> -->
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7139bed0d4310330e1419e5290610a922d18f2d8
                 <!-- [미로그인 상태] (user == null) -->
                 <th:block th:if="${user == null}">
                     <!-- 정적 파일 열기 시 member 하위 폴더 이동 / 서버 구동 시 URL 매핑 -->
@@ -125,7 +129,11 @@
                         <strong th:text="${user.name}">홍길동</strong>님 환영합니다!
                     </span>
                     <span class="text-white-50 small">·</span>
+<<<<<<< HEAD
+                    <a href="member/list.html" th:href="@{/member/list}" class="hp-sub-link">회원목록</a>
+=======
                     <a href="member/admin.html" th:href="@{/member/admin}" class="hp-sub-link">회원목록</a>
+>>>>>>> 7139bed0d4310330e1419e5290610a922d18f2d8
                     <span class="text-white-50 small">·</span>
                     <a href="index.html" th:href="@{/member/logout}" class="btn btn-sm btn-outline-light py-0 px-2" style="font-size: 0.8rem;">로그아웃</a>
                 </th:block>

@@ -21,4 +21,8 @@ COPY --from=build /app/build/libs/*.jar app.jar
 ENV TZ=Asia/Seoul
 EXPOSE 8080
 
+<<<<<<< HEAD
 ENTRYPOINT ["java", "-jar", "app.jar"]
+=======
+ENTRYPOINT ["java", "-jar", "app.jar"]
+>>>>>>> 7139bed0d4310330e1419e5290610a922d18f2d8
