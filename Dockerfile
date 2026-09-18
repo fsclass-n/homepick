@@ -2,7 +2,6 @@ FROM gradle:9.7.1-jdk21 AS build
 
 WORKDIR /workspace
 
-# 의존성 레이어를 먼저 만들면 소스만 변경된 경우 Docker 빌드 캐시를 활용할 수 있습니다.
 COPY gradlew build.gradle settings.gradle ./
 COPY gradle ./gradle
 RUN chmod +x gradlew
