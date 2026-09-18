@@ -1,24 +1,25 @@
-# 1. Build Stage
-FROM eclipse-temurin:21-jdk AS build
+FROM gradle:9.7.1-jdk21 AS build
+
+WORKDIR /workspace
+
+# 의존성 레이어를 먼저 만들면 소스만 변경된 경우 Docker 빌드 캐시를 활용할 수 있습니다.
+COPY gradlew build.gradle settings.gradle ./
+COPY gradle ./gradle
+RUN chmod +x gradlew
+RUN ./gradlew dependencies --no-daemon
+
+COPY src ./src
+RUN ./gradlew bootJar --no-daemon
+
+FROM eclipse-temurin:21-jre
+
 WORKDIR /app
 
-# 빌드 효율을 위해 설정 파일과 Gradle Wrapper 먼저 복사
-COPY gradlew build.gradle settings.gradle /app/
-COPY gradle /app/gradle
-COPY src /app/src
+RUN addgroup --system spring && adduser --system --ingroup spring spring
+COPY --from=build /workspace/build/libs/*.jar app.jar
 
-# 프로젝트에 고정된 Gradle Wrapper로 테스트 제외하고 jar 빌드
-RUN chmod +x gradlew && ./gradlew clean bootJar -x test --no-daemon
+USER spring
 
-# 2. Run Stage
-FROM amazoncorretto:21-al2023-headless
-WORKDIR /app
-
-# 빌드된 jar 파일을 app.jar로 복사
-COPY --from=build /app/build/libs/*.jar app.jar
-
-# 타임존 설정 (한국 시간)
-ENV TZ=Asia/Seoul
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

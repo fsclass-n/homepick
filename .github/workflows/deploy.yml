@@ -1,48 +1,49 @@
-name: Deploy homepick to AWS EC2
+name: Build and deploy
 
 on:
   push:
-    branches: [ "main" ] # homepick은 레포 루트가 프로젝트이므로 main 푸시 시 항상 배포
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build-and-deploy:
+  test:
+    name: Test application
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out source
+        uses: actions/checkout@v4
 
-      # 1. Docker Hub 로그인
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
 
-      # 2. 이미지 빌드 및 푸시 (레포 루트의 Dockerfile 사용)
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/homepick:latest
+      - name: Run tests
+        run: |
+          chmod +x gradlew
+          ./gradlew test --no-daemon
 
-      # 3. SSH 접속하여 EC2에 배포
-      - name: SSH Remote Deployment
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            # 기존 컨테이너 중지 및 삭제
-            docker stop homepick || true
-            docker rm homepick || true
-            docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/homepick:latest || true
-            
-            # 새 이미지 Pull 및 실행 (80포트로 접속하면 내부 8080으로 연결)
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/homepick:latest
-            docker run -d --name homepick -p 80:8080 \
-              --restart unless-stopped \
-              ${{ secrets.DOCKERHUB_USERNAME }}/homepick:latest
-            
-            # 불필요한 이미지 정리
-            docker image prune -f
+  deploy:
+    name: Deploy to Render
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+
+    steps:
+      - name: Trigger Render deployment
+        shell: bash
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "RENDER_DEPLOY_HOOK_URL repository secret is required."
+            exit 1
+          fi
+
+          curl --fail --silent --show-error --retry 3 --request POST "$RENDER_DEPLOY_HOOK_URL"
