@@ -45,8 +45,4 @@ jobs:
               ${{ secrets.DOCKERHUB_USERNAME }}/homepick:latest
             
             # 불필요한 이미지 정리
-<<<<<<< HEAD
             docker image prune -f
-=======
-            docker image prune -f
->>>>>>> 7139bed0d4310330e1419e5290610a922d18f2d8
