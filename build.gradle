@@ -28,6 +28,12 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	// 1. Spring JDBC (JdbcTemplate 포함)
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+	// 2. TiDB 연결용 MySQL 드라이버
+	implementation 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {

@@ -1,9 +1,10 @@
+// LoginController.java
 package com.onrender.homepick.controller;
 
 import com.onrender.homepick.dto.LoginRequest;
 import com.onrender.homepick.dto.MemberSessionDto;
 import com.onrender.homepick.dto.RegisterRequest;
-import com.onrender.homepick.repository.InMemoryMemberRepository;
+import com.onrender.homepick.repository.JdbcMemberRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class LoginController{
 
-    private final InMemoryMemberRepository repository;
+    private final JdbcMemberRepository repository;
 
     @GetMapping("/login")
     public String form(){
-        return "member/login"; // templates/member/login.html
+        return "member/login";
     }
 
     @PostMapping("/login")
@@ -35,7 +36,6 @@ public class LoginController{
         }
 
         session.setAttribute("loginUser", new MemberSessionDto(member.getEmail(), member.getName()));
-        
         return "redirect:/";
     }
 
