@@ -1,5 +1,6 @@
 # ----------------------------------------------------
 # 1. Build Stage: Gradle 빌드 수행
+# *.java -> (컴파일) -> .class -> 패키지 -> *.jar
 # ----------------------------------------------------
 # Alpine Linux 위에 Java 21 JDK가 설치된 Eclipse Temurin Docker 이미지
 FROM eclipse-temurin:21-jdk-alpine AS builder
