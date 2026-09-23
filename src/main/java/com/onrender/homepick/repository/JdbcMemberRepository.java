@@ -15,6 +15,7 @@ public class JdbcMemberRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
+    // 1. 회원가입 여부 확인, 2. 회원 정보 저장(Create -> INSERT), 3. 회원 조회(Read -> SELECT)
     private final RowMapper<RegisterRequest> memberRowMapper = (rs, rowNum) -> {
         RegisterRequest member = new RegisterRequest();
         member.setEmail(rs.getString("email"));
@@ -23,17 +24,20 @@ public class JdbcMemberRepository{
         return member;
     };
 
+    // 1. 회원가입 여부 확인(Read -> SELECT)
     public boolean existsByEmail(String email){
         String sql = "SELECT COUNT(*) FROM member WHERE email = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
         return count != null && count > 0;
     }
 
+    // 2. 회원 정보 저장(Create -> INSERT)
     public void save(RegisterRequest member){
         String sql = "INSERT INTO member (email, password, name) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, member.getEmail(), member.getPassword(), member.getName());
     }
 
+    // 3. 회원 조회(Read -> SELECT)
     public Optional<RegisterRequest> findByEmail(String email){
         String sql = "SELECT email, password, name FROM member WHERE email = ?";
         return jdbcTemplate.query(sql, memberRowMapper, email)
@@ -41,6 +45,7 @@ public class JdbcMemberRepository{
                 .findFirst();
     }
 
+    // 4. 회원 목록 전체 조회(Read -> SELECT)
     public Collection<RegisterRequest> findAll(){
         String sql = "SELECT email, password, name FROM member ORDER BY created_at DESC";
         return jdbcTemplate.query(sql, memberRowMapper);
