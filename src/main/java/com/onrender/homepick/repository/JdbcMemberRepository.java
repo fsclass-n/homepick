@@ -15,7 +15,7 @@ public class JdbcMemberRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
-    // 1. 회원가입 여부 확인, 2. 회원 정보 저장(Create -> INSERT), 3. 회원 조회(Read -> SELECT)
+    // 람다식
     private final RowMapper<RegisterRequest> memberRowMapper = (rs, rowNum) -> {
         RegisterRequest member = new RegisterRequest();
         member.setEmail(rs.getString("email"));
